@@ -1,0 +1,42 @@
+workflows:
+  android-apk:
+    name: BizHealth360 Android APK
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      java: 17
+      # These environment variables must be set in Codemagic UI > Environment variables
+      # CM_KEYSTORE      - base64-encoded keystore file content
+      # CM_KEYSTORE_PATH - path where keystore will be decoded to (e.g. /tmp/keystore.jks)
+      # CM_KEY_ALIAS     - key alias inside the keystore
+      # CM_KEY_PASSWORD  - key password
+      # CM_STORE_PASSWORD - keystore/store password
+      vars:
+        CM_KEYSTORE_PATH: /tmp/keystore.jks
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - name: Set up keystore
+        script: |
+          echo $CM_KEYSTORE | base64 --decode > $CM_KEYSTORE_PATH
+      - name: Get Flutter packages
+        script: flutter pub get
+      - name: Build APK (release)
+        script: |
+          flutter build apk --release \
+            --build-name=1.0.0 \
+            --build-number=$(($(date +%s)))
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+    publishing:
+      email:
+        recipients:
+          - niraj417@example.com   # ← replace with your actual email
+        notify:
+          success: true
+          failure: true

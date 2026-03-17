@@ -1,8 +1,18 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+}
+
+// Load keystore from key.properties file (local) or Codemagic env vars
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
 android {
@@ -19,11 +29,25 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
+    signingConfigs {
+        create("release") {
+            // Codemagic injects CM_KEYSTORE_PATH, CM_KEY_ALIAS, CM_KEY_PASSWORD, CM_STORE_PASSWORD
+            // Locally, these can be stored in android/key.properties (do NOT commit that file)
+            storeFile = file(
+                System.getenv("CM_KEYSTORE_PATH")
+                    ?: keystoreProperties.getProperty("storeFile", "")
+            )
+            keyAlias = System.getenv("CM_KEY_ALIAS")
+                ?: keystoreProperties.getProperty("keyAlias", "")
+            keyPassword = System.getenv("CM_KEY_PASSWORD")
+                ?: keystoreProperties.getProperty("keyPassword", "")
+            storePassword = System.getenv("CM_STORE_PASSWORD")
+                ?: keystoreProperties.getProperty("storePassword", "")
+        }
+    }
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.bizheath360.bizheath360"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -32,8 +56,11 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+        debug {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
