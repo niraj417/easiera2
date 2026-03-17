@@ -33,16 +33,18 @@ android {
         create("release") {
             // Codemagic injects CM_KEYSTORE_PATH, CM_KEY_ALIAS, CM_KEY_PASSWORD, CM_STORE_PASSWORD
             // Locally, these can be stored in android/key.properties (do NOT commit that file)
-            storeFile = file(
-                System.getenv("CM_KEYSTORE_PATH")
-                    ?: keystoreProperties.getProperty("storeFile", "")
-            )
-            keyAlias = System.getenv("CM_KEY_ALIAS")
-                ?: keystoreProperties.getProperty("keyAlias", "")
-            keyPassword = System.getenv("CM_KEY_PASSWORD")
-                ?: keystoreProperties.getProperty("keyPassword", "")
-            storePassword = System.getenv("CM_STORE_PASSWORD")
-                ?: keystoreProperties.getProperty("storePassword", "")
+            val keystorePath = System.getenv("CM_KEYSTORE_PATH")
+                ?: keystoreProperties.getProperty("storeFile", "")
+                
+            if (keystorePath.isNotEmpty()) {
+                storeFile = file(keystorePath)
+                keyAlias = System.getenv("CM_KEY_ALIAS")
+                    ?: keystoreProperties.getProperty("keyAlias", "")
+                keyPassword = System.getenv("CM_KEY_PASSWORD")
+                    ?: keystoreProperties.getProperty("keyPassword", "")
+                storePassword = System.getenv("CM_STORE_PASSWORD")
+                    ?: keystoreProperties.getProperty("storePassword", "")
+            }
         }
     }
 
