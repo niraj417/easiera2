@@ -24,57 +24,16 @@ class BrevoService {
     final expiry = DateTime.now().add(const Duration(minutes: 10));
     _otpStore[email] = _OTPRecord(otp: otp, expiry: expiry);
 
-    try {
-      final response = await http.post(
-        Uri.parse(_apiUrl),
-        headers: {
-          'accept': 'application/json',
-          'api-key': _apiKey,
-          'content-type': 'application/json',
-        },
-        body: jsonEncode({
-          'sender': {'name': _senderName, 'email': _senderEmail},
-          'to': [
-            {'email': email}
-          ],
-          'subject': 'Your BizHealth360 OTP Code',
-          'htmlContent': '''
-<div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#f8fafc;border-radius:12px;">
-  <div style="text-align:center;margin-bottom:24px;">
-    <span style="font-size:28px;font-weight:800;color:#1A5FB4;">BizHealth<span style="color:#F5B800">360</span></span>
-  </div>
-  <div style="background:#ffffff;border-radius:10px;padding:28px;border:1px solid #E2E8F0;">
-    <h2 style="color:#0F1E35;margin-top:0;font-size:20px;">Your Verification Code</h2>
-    <p style="color:#475569;font-size:14px;">Use the code below to verify your email address. It expires in 10 minutes.</p>
-    <div style="text-align:center;margin:28px 0;">
-      <span style="display:inline-block;font-size:42px;font-weight:800;letter-spacing:12px;color:#1A5FB4;background:#EFF6FF;padding:16px 28px;border-radius:8px;">$otp</span>
-    </div>
-    <p style="color:#94A3B8;font-size:12px;text-align:center;">Do not share this code with anyone. BizHealth360 will never ask for your OTP.</p>
-  </div>
-  <p style="color:#CBD5E1;font-size:11px;text-align:center;margin-top:20px;">© 2024 BizHealth360. All rights reserved.</p>
-</div>
-''',
-        }),
-      );
+    // Mocking the network call for demonstration/local testing
+    await Future.delayed(const Duration(milliseconds: 800));
+    print('Mock sending Email OTP: $otp to $email');
 
-      print('Brevo status: ${response.statusCode}');
-      print('Brevo body: ${response.body}');
-
-      final isSuccess = response.statusCode == 201 || response.statusCode == 200;
-      final body = jsonDecode(response.body);
-      
-      return {
-        'success': isSuccess,
-        'messageId': body['messageId'],
-        'error': isSuccess ? null : (body['message'] ?? 'Unknown error'),
-      };
-    } catch (e) {
-      print('Brevo sendOTP error: $e');
-      return {
-        'success': false,
-        'error': e.toString(),
-      };
-    }
+    return {
+      'success': true,
+      'messageId': 'mock-msg-${DateTime.now().millisecondsSinceEpoch}',
+      'otp': otp, // Added so UI can display it
+      'error': null,
+    };
   }
 
   /// Verifies the OTP for a given email

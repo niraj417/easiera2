@@ -7,6 +7,7 @@ import '../../core/theme/app_spacing.dart';
 import '../../widgets/buttons/bh_button.dart';
 import '../../widgets/navigation/bh_navigation.dart';
 import '../../core/services/brevo_service.dart';
+import '../setup/setup_pan_screen.dart' show SkipSetupButton;
 
 class EmailOTPScreen extends StatefulWidget {
   final String email;
@@ -56,6 +57,17 @@ class _EmailOTPScreenState extends State<EmailOTPScreen> {
           _otpSent = true;
           _resendCountdown = 60;
           _startCountdown();
+
+          if (result['otp'] != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Mock OTP received: ${result['otp']} (Auto-delivered for testing)'),
+                backgroundColor: AppColors.statusGreen,
+                duration: const Duration(seconds: 10),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          }
         } else {
           _errorMessage = result['error'] ?? 'Failed to send email OTP. Please try again.';
         }
@@ -112,7 +124,7 @@ class _EmailOTPScreenState extends State<EmailOTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BHAppBar(title: 'Verify Email'),
+      appBar: BHAppBar(title: 'Verify Email', actions: const [SkipSetupButton()]),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.xxl),
         child: Column(

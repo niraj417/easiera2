@@ -13,11 +13,10 @@ class MainShell extends StatefulWidget {
 class _MainShellState extends State<MainShell> {
   int _currentIndex = 0;
 
-  // 6-tab navigation: Dashboard, Compliance, BHS, Advisory, Integrations, Profile
+  // 5-tab navigation: Dashboard (BHS), Compliance, Advisory, Integrations, Profile
   static const _routes = [
     '/dashboard',
     '/compliance',
-    '/health',
     '/ai-advisor',
     '/integrations',
     '/profile',

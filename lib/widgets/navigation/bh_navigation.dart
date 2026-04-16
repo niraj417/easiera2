@@ -33,10 +33,9 @@ class BHBottomNavBar extends StatelessWidget {
             children: [
               _NavItem(icon: Icons.dashboard_rounded, label: 'Dash', index: 0, currentIndex: currentIndex, onTap: onTap),
               _NavItem(icon: Icons.task_alt_rounded, label: 'Comp', index: 1, currentIndex: currentIndex, onTap: onTap),
-              _NavItem(icon: Icons.monitor_heart_rounded, label: 'Biz', index: 2, currentIndex: currentIndex, onTap: onTap),
-              _NavItem(icon: Icons.psychology_rounded, label: 'Advice', index: 3, currentIndex: currentIndex, onTap: onTap),
-              _NavItem(icon: Icons.api_rounded, label: 'Links', index: 4, currentIndex: currentIndex, onTap: onTap),
-              _NavItem(icon: Icons.person_outline_rounded, label: 'Profile', index: 5, currentIndex: currentIndex, onTap: onTap),
+              _NavItem(icon: Icons.psychology_rounded, label: 'Advice', index: 2, currentIndex: currentIndex, onTap: onTap),
+              _NavItem(icon: Icons.api_rounded, label: 'Links', index: 3, currentIndex: currentIndex, onTap: onTap),
+              _NavItem(icon: Icons.person_outline_rounded, label: 'Profile', index: 4, currentIndex: currentIndex, onTap: onTap),
             ],
           ),
         ),

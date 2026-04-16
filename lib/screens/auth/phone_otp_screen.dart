@@ -7,6 +7,7 @@ import '../../core/theme/app_spacing.dart';
 import '../../widgets/buttons/bh_button.dart';
 import '../../widgets/navigation/bh_navigation.dart';
 import '../../core/services/postcoder_service.dart';
+import '../setup/setup_pan_screen.dart' show SkipSetupButton;
 
 class PhoneOTPScreen extends StatefulWidget {
   final String phone;
@@ -61,6 +62,17 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
           _otpSessionId = result['id'];
           _resendCountdown = 30;
           _startCountdown();
+
+          if (result['otp'] != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Mock OTP received: ${result['otp']} (Auto-delivered for testing)'),
+                backgroundColor: AppColors.statusGreen,
+                duration: const Duration(seconds: 10),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          }
         } else {
           _errorMessage = result['error'] ?? 'Failed to send OTP. Please check the number and try again.';
         }
@@ -120,7 +132,7 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BHAppBar(title: 'Verify Mobile'),
+      appBar: BHAppBar(title: 'Verify Mobile', actions: const [SkipSetupButton()]),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.xxl),
         child: Column(

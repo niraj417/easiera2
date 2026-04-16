@@ -20,7 +20,6 @@ import '../../screens/setup/setup_success_screen.dart';
 import '../../screens/main_shell.dart';
 
 // Dashboard
-import '../../screens/dashboard/dashboard_screen.dart';
 import '../../screens/dashboard/notifications_screen.dart';
 import '../../screens/dashboard/search_screen.dart';
 
@@ -88,9 +87,8 @@ final GoRouter appRouter = GoRouter(
     ShellRoute(
       builder: (_, state, child) => MainShell(child: child),
       routes: [
-        GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
+        GoRoute(path: '/dashboard', builder: (_, __) => const HealthScoreDashboardScreen()),
         GoRoute(path: '/compliance', builder: (_, __) => const ComplianceOverviewScreen()),
-        GoRoute(path: '/health', builder: (_, __) => const HealthScoreDashboardScreen()),
         GoRoute(path: '/ai-advisor', builder: (_, __) => const AIAdvisorScreen()),
         GoRoute(path: '/integrations', builder: (_, __) => const IntegrationsHubScreen()),
         GoRoute(path: '/profile', builder: (_, __) => const ProfileScreen()),
