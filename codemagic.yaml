@@ -6,8 +6,8 @@ workflows:
       flutter: stable
       java: 17
       vars:
-        # Use the existing keystore in the repository
-        CM_KEYSTORE_PATH: "android/app/upload-keystore.jks"
+        # Use the existing keystore in the repository (relative to android/app)
+        CM_KEYSTORE_PATH: "upload-keystore.jks"
     triggering:
       events:
         - push
