@@ -254,11 +254,7 @@ class _SetupLicensesScreenState extends ConsumerState<SetupLicensesScreen> {
                       ]),
                     ).animate().fadeIn(duration: 300.ms),
                   const SizedBox(height: 16),
-
-                  // Legend
-                  _LicenseLegend(),
-                  const SizedBox(height: 20),
-
+                  
                   // Group: Required
                   if (required.isNotEmpty) ...[
                     _GroupHeader(level: LicenseLevel.required),
@@ -526,40 +522,6 @@ class _GroupHeader extends StatelessWidget {
   }
 }
 
-// ─── Legend ───────────────────────────────────────────────────────────────────
-
-class _LicenseLegend extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.borderLight),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Licence Categories', style: AppTypography.labelMedium.copyWith(color: AppColors.textSecondary)),
-          const SizedBox(height: 10),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: LicenseLevel.values.map((l) => Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(l.icon, color: l.color, size: 14),
-                const SizedBox(width: 4),
-                Text(l.label, style: AppTypography.labelSmall.copyWith(color: l.color, fontWeight: FontWeight.w600)),
-              ],
-            )).toList(),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 // ─── MCA Screen (unchanged, lives in same file) ───────────────────────────────
 
