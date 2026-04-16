@@ -390,7 +390,7 @@ class _MasterBHSCard extends StatelessWidget {
             score: score,
             maxScore: 100,
             label: '',
-            color: ratingColor,
+            color: Colors.yellow,
             size: 180,
           ),
 
