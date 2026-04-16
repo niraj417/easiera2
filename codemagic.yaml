@@ -1,10 +1,13 @@
 workflows:
-  android-apk:
-    name: BizHealth360 Android APK (Debug)
+  android-release:
+    name: BizHealth360 Android APK (Release)
     max_build_duration: 60
     environment:
       flutter: stable
       java: 17
+      vars:
+        # Use the existing keystore in the repository
+        CM_KEYSTORE_PATH: "android/app/upload-keystore.jks"
     triggering:
       events:
         - push
@@ -15,17 +18,19 @@ workflows:
     scripts:
       - name: Get Flutter packages
         script: flutter pub get
-      - name: Build APK (debug)
+      - name: Build APK (release)
         script: |
-          flutter build apk --debug \
+          # Requires CM_KEY_ALIAS, CM_KEY_PASSWORD, and CM_STORE_PASSWORD 
+          # to be injected via Codemagic Dashboard UI Environment Variables!
+          flutter build apk --release \
             --build-name=1.0.0 \
             --build-number=$(($(date +%s)))
     artifacts:
-      - build/app/outputs/flutter-apk/app-debug.apk
+      - build/app/outputs/flutter-apk/app-release.apk
     publishing:
       email:
         recipients:
-          - niraj417@example.com   # ← replace with your actual email
+          - niraj417@example.com
         notify:
           success: true
           failure: true

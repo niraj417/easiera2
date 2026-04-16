@@ -49,16 +49,21 @@ class _SplashScreenState extends State<SplashScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(24),
+                      height: 120,
+                      width: 120,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.1),
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white.withOpacity(0.2)),
-                      ),
-                      child: const Icon(
-                        Icons.analytics_rounded,
-                        size: 80,
-                        color: AppColors.goldAccent,
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/logo.png'),
+                          fit: BoxFit.cover,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            blurRadius: 15,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
                       ),
                     ).animate().scale(duration: 600.ms, curve: Curves.easeOutBack).fadeIn(),
                     const SizedBox(height: 24),
@@ -103,6 +108,15 @@ class _SplashScreenState extends State<SplashScreen> {
                     strokeWidth: 2,
                   ).animate().fadeIn(delay: 800.ms),
                   const SizedBox(height: 32),
+                  Text(
+                    'By Easiera .',
+                    style: AppTypography.labelSmall.copyWith(
+                      color: Colors.white.withOpacity(0.6),
+                      letterSpacing: 1.5,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ).animate().fadeIn(delay: 900.ms),
+                  const SizedBox(height: 24),
                 ],
               ),
             ],
