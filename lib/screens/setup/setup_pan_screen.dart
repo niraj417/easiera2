@@ -148,7 +148,7 @@ class SkipSetupButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => showSkipSetupDialog(context),
+      onPressed: () => context.go('/dashboard'),
       style: TextButton.styleFrom(
         foregroundColor: AppColors.textSecondary,
         padding: const EdgeInsets.symmetric(horizontal: 12),

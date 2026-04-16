@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_spacing.dart';
+import '../../widgets/charts/gauge_chart.dart';
 import '../../widgets/buttons/bh_button.dart';
 import '../../widgets/cards/bh_cards.dart';
 import '../../widgets/indicators/bh_indicators.dart';
@@ -385,23 +386,12 @@ class _MasterBHSCard extends StatelessWidget {
           ),
           const SizedBox(height: 20),
 
-          // Speedometer
-          CircularPercentIndicator(
-            radius: 90,
-            lineWidth: 14,
-            percent: percent.clamp(0.0, 1.0),
-            center: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('${score.round()}', style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w800, color: Colors.white)),
-                Text('/100', style: AppTypography.bodySmall.copyWith(color: Colors.white60)),
-              ],
-            ),
-            progressColor: ratingColor,
-            backgroundColor: Colors.white.withOpacity(0.15),
-            circularStrokeCap: CircularStrokeCap.round,
-            animation: true,
-            animationDuration: 1200,
+          GaugeChart(
+            score: score,
+            maxScore: 100,
+            label: '',
+            color: ratingColor,
+            size: 180,
           ),
 
           const SizedBox(height: 16),

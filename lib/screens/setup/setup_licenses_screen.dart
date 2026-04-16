@@ -372,7 +372,7 @@ class _LicenseTile extends StatelessWidget {
     final isDimmed = level == LicenseLevel.notRequired;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Material(
         color: isSelected ? license.color.withOpacity(0.06) : (isDimmed ? const Color(0xFFF8FAFC) : Colors.white),
         borderRadius: BorderRadius.circular(AppRadius.card),
@@ -380,7 +380,7 @@ class _LicenseTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppRadius.card),
           onTap: isDimmed ? null : onToggle,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppRadius.card),
               border: Border.all(
@@ -411,24 +411,28 @@ class _LicenseTile extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Flexible(
                           child: Text(
                             license.name,
-                            style: AppTypography.labelMedium.copyWith(
+                            style: AppTypography.labelLarge.copyWith(
                               color: isDimmed ? AppColors.textSecondary : AppColors.textPrimary,
                             ),
                           ),
                         ),
-                        const SizedBox(width: 6),
-                        // Level badge
-                        _LevelBadge(level: level),
+                        const SizedBox(width: 8),
+                        // Level badge slightly elevated
+                        Container(
+                          margin: const EdgeInsets.only(top: 2),
+                          child: _LevelBadge(level: level),
+                        ),
                       ]),
-                      const SizedBox(height: 2),
+                      const SizedBox(height: 4),
                       Text(
                         license.subtitle,
                         style: AppTypography.bodySmall.copyWith(
                           color: isDimmed ? AppColors.textTertiary : AppColors.textSecondary,
+                          height: 1.4,
                         ),
                       ),
                     ],
