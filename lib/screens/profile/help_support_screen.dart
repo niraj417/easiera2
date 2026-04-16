@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
@@ -21,7 +20,7 @@ class HelpSupportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Help & Support'),
+      appBar: const BHAppBar(title: 'Help & Support'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),

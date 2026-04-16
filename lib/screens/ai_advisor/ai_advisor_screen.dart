@@ -5,7 +5,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../widgets/buttons/bh_button.dart';
-import '../../widgets/indicators/bh_indicators.dart';
 import '../../widgets/navigation/bh_navigation.dart';
 
 // AI Advisor module screens
@@ -72,7 +71,7 @@ class AIAdvisorScreen extends StatelessWidget {
               ),
             ).animate().fadeIn(duration: 500.ms),
             const SizedBox(height: AppSpacing.lg),
-            Row(children: [
+            const Row(children: [
               _FilterChip('All', true),
               _FilterChip('High Priority', false),
               _FilterChip('Tax Saving', false),
@@ -168,7 +167,7 @@ class _AIChatScreenState extends State<AIChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Bizzy AI Chat'),
+      appBar: const BHAppBar(title: 'Bizzy AI Chat'),
       body: Column(
         children: [
           // Suggestions
@@ -212,7 +211,7 @@ class _AIChatScreenState extends State<AIChatScreen> {
                     ),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       if (isAI) Row(children: [
-                        Container(width: 20, height: 20, decoration: BoxDecoration(gradient: AppColors.goldGradient, shape: BoxShape.circle), child: const Icon(Icons.psychology_rounded, size: 12, color: Colors.white)),
+                        Container(width: 20, height: 20, decoration: const BoxDecoration(gradient: AppColors.goldGradient, shape: BoxShape.circle), child: const Icon(Icons.psychology_rounded, size: 12, color: Colors.white)),
                         const SizedBox(width: 6),
                         Text('Bizzy AI', style: AppTypography.labelSmall.copyWith(color: AppColors.goldAccent)),
                         const SizedBox(height: 4),
@@ -227,7 +226,7 @@ class _AIChatScreenState extends State<AIChatScreen> {
           ),
           Container(
             padding: const EdgeInsets.all(AppSpacing.md),
-            decoration: BoxDecoration(color: Colors.white, border: Border(top: BorderSide(color: AppColors.borderLight))),
+            decoration: const BoxDecoration(color: Colors.white, border: Border(top: BorderSide(color: AppColors.borderLight))),
             child: SafeArea(
               child: Row(children: [
                 Expanded(
@@ -248,7 +247,7 @@ class _AIChatScreenState extends State<AIChatScreen> {
                   onTap: () => _sendMessage(_controller.text),
                   child: Container(
                     width: 44, height: 44,
-                    decoration: BoxDecoration(gradient: AppColors.primaryGradient, shape: BoxShape.circle),
+                    decoration: const BoxDecoration(gradient: AppColors.primaryGradient, shape: BoxShape.circle),
                     child: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
                   ),
                 ),

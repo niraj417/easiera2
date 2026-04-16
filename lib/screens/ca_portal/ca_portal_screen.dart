@@ -44,13 +44,13 @@ class CAPortalScreen extends StatelessWidget {
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           // CA Summary
-          Row(children: [
+          const Row(children: [
             _CAStat('4', 'Clients', AppColors.primaryBlue),
-            const SizedBox(width: 10),
+            SizedBox(width: 10),
             _CAStat('9', 'Pending\nActions', AppColors.statusAmber),
-            const SizedBox(width: 10),
+            SizedBox(width: 10),
             _CAStat('1', 'Overdue\nClients', AppColors.statusRed),
-            const SizedBox(width: 10),
+            SizedBox(width: 10),
             _CAStat('72', 'Avg\nScore', AppColors.statusGreen),
           ]),
           const SizedBox(height: AppSpacing.lg),
@@ -65,7 +65,7 @@ class CAPortalScreen extends StatelessWidget {
               decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(AppRadius.card), border: Border.all(color: AppColors.borderLight)),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Row(children: [
-                  Container(width: 44, height: 44, decoration: BoxDecoration(gradient: AppColors.primaryGradient, shape: BoxShape.circle), child: Center(child: Text(client['name'].toString().substring(0, 1), style: AppTypography.headlineMedium.copyWith(color: Colors.white, fontWeight: FontWeight.w700)))),
+                  Container(width: 44, height: 44, decoration: const BoxDecoration(gradient: AppColors.primaryGradient, shape: BoxShape.circle), child: Center(child: Text(client['name'].toString().substring(0, 1), style: AppTypography.headlineMedium.copyWith(color: Colors.white, fontWeight: FontWeight.w700)))),
                   const SizedBox(width: 12),
                   Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Text(client['name'] as String, style: AppTypography.labelLarge),
@@ -121,7 +121,7 @@ class CAClientDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Sharma Trading Pvt. Ltd.'),
+      appBar: const BHAppBar(title: 'Sharma Trading Pvt. Ltd.'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -133,7 +133,7 @@ class CAClientDashboardScreen extends StatelessWidget {
               Text('Client Health Score', style: AppTypography.labelMedium.copyWith(color: Colors.white70)),
               Text('78 / 100', style: AppTypography.displayLarge.copyWith(color: Colors.white, fontWeight: FontWeight.w800)),
               const SizedBox(height: 16),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              const Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                 _ClientStat('GST', '85', AppColors.statusGreen),
                 _ClientStat('TDS', '↓ Overdue', AppColors.statusRed),
                 _ClientStat('PF', '80', AppColors.statusGreen),
@@ -175,7 +175,7 @@ class AddCAClientScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Add Client'),
+      appBar: const BHAppBar(title: 'Add Client'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -193,7 +193,7 @@ class AddCAClientScreen extends StatelessWidget {
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(f['label']!, style: AppTypography.labelMedium.copyWith(fontWeight: FontWeight.w500)),
               const SizedBox(height: 6),
-              TextField(decoration: InputDecoration(hintText: f['hint'], filled: true, fillColor: Colors.white, border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppColors.borderLight)), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppColors.borderLight)))),
+              TextField(decoration: InputDecoration(hintText: f['hint'], filled: true, fillColor: Colors.white, border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppColors.borderLight)), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppColors.borderLight)))),
             ]),
           )),
           BHButton(label: 'Send Invitation', onPressed: () => context.pop(), leadingIcon: Icons.send_rounded),

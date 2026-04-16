@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
@@ -12,7 +11,7 @@ import '../../widgets/navigation/bh_navigation.dart';
 class ZohoBooksScreen extends StatelessWidget {
   const ZohoBooksScreen({super.key});
   @override
-  Widget build(BuildContext context) => _IntegrationDetailScreen(
+  Widget build(BuildContext context) => const _IntegrationDetailScreen(
     name: 'Zoho Books',
     icon: Icons.menu_book_rounded,
     color: AppColors.statusGreen,
@@ -26,7 +25,7 @@ class ZohoBooksScreen extends StatelessWidget {
 class HRIntegrationScreen extends StatelessWidget {
   const HRIntegrationScreen({super.key});
   @override
-  Widget build(BuildContext context) => _IntegrationDetailScreen(
+  Widget build(BuildContext context) => const _IntegrationDetailScreen(
     name: 'HR System',
     icon: Icons.people_rounded,
     color: AppColors.statusAmber,
@@ -42,7 +41,7 @@ class ExcelUploadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Excel / CSV Upload'),
+      appBar: const BHAppBar(title: 'Excel / CSV Upload'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -56,7 +55,7 @@ class ExcelUploadScreen extends StatelessWidget {
               border: Border.all(color: AppColors.primaryBlue.withOpacity(0.3), width: 2, style: BorderStyle.solid),
             ),
             child: Column(children: [
-              Container(width: 64, height: 64, decoration: BoxDecoration(color: AppColors.lightBlue, shape: BoxShape.circle), child: const Icon(Icons.upload_file_rounded, color: AppColors.primaryBlue, size: 32)),
+              Container(width: 64, height: 64, decoration: const BoxDecoration(color: AppColors.lightBlue, shape: BoxShape.circle), child: const Icon(Icons.upload_file_rounded, color: AppColors.primaryBlue, size: 32)),
               const SizedBox(height: 16),
               Text('Drag & Drop or Browse', style: AppTypography.headlineMedium),
               const SizedBox(height: 4),

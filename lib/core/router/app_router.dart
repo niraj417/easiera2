@@ -7,12 +7,14 @@ import '../../screens/auth/login_screen.dart';
 import '../../screens/auth/phone_otp_screen.dart';
 import '../../screens/auth/email_otp_screen.dart';
 import '../../screens/auth/forgot_access_screen.dart';
+import '../../screens/auth/register_screen.dart';
 
 // Setup screens
 import '../../screens/setup/setup_pan_screen.dart';
 import '../../screens/setup/setup_business_type_screen.dart';
 import '../../screens/setup/setup_licenses_screen.dart';
 import '../../screens/setup/setup_team_screen.dart';
+import '../../screens/setup/setup_success_screen.dart';
 
 // Main shell
 import '../../screens/main_shell.dart';
@@ -31,7 +33,7 @@ import '../../screens/documents/document_vault_screen.dart';
 
 // Health Score
 import '../../screens/health_score/health_score_dashboard_screen.dart';
-import '../../screens/health_score/score_history_screen.dart';
+import '../../screens/health_score/bhs_detail_screens.dart';
 
 // AI Advisor
 import '../../screens/ai_advisor/ai_advisor_screen.dart';
@@ -48,6 +50,8 @@ import '../../screens/ca_portal/switch_company_screen.dart';
 // Integrations
 import '../../screens/integrations/integrations_hub_screen.dart';
 import '../../screens/integrations/zoho_books_screen.dart';
+import '../../screens/integrations/compliance_integration_screen.dart';
+import '../../screens/integrations/tally_connect_screen.dart';
 
 // Profile
 import '../../screens/profile/profile_screen.dart';
@@ -60,8 +64,15 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/', builder: (_, __) => const SplashScreen()),
     GoRoute(path: '/onboarding', builder: (_, __) => const OnboardingScreen()),
     GoRoute(path: '/login', builder: (_, __) => const LoginScreen()),
-    GoRoute(path: '/otp/phone', builder: (_, __) => const PhoneOTPScreen()),
-    GoRoute(path: '/otp/email', builder: (_, __) => const EmailOTPScreen()),
+    GoRoute(path: '/register', builder: (_, __) => const RegisterScreen()),
+    GoRoute(
+      path: '/otp/phone',
+      builder: (_, state) => PhoneOTPScreen(phone: (state.extra as String?) ?? ''),
+    ),
+    GoRoute(
+      path: '/otp/email',
+      builder: (_, state) => EmailOTPScreen(email: (state.extra as String?) ?? ''),
+    ),
     GoRoute(path: '/forgot-access', builder: (_, __) => const ForgotAccessScreen()),
 
     // ── Setup ─────────────────────────────────────────────────────────────
@@ -79,9 +90,10 @@ final GoRouter appRouter = GoRouter(
       routes: [
         GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
         GoRoute(path: '/compliance', builder: (_, __) => const ComplianceOverviewScreen()),
-        GoRoute(path: '/documents', builder: (_, __) => const DocumentVaultScreen()),
         GoRoute(path: '/health', builder: (_, __) => const HealthScoreDashboardScreen()),
         GoRoute(path: '/ai-advisor', builder: (_, __) => const AIAdvisorScreen()),
+        GoRoute(path: '/integrations', builder: (_, __) => const IntegrationsHubScreen()),
+        GoRoute(path: '/profile', builder: (_, __) => const ProfileScreen()),
       ],
     ),
 
@@ -115,11 +127,15 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/documents/versions', builder: (_, __) => const VersionHistoryScreen()),
 
     // ── Health Score sub-routes ────────────────────────────────────────────
+    GoRoute(path: '/health/chs', builder: (_, __) => const CHSDetailScreen()),
+    GoRoute(path: '/health/fhs', builder: (_, __) => const FHSDetailScreen()),
+    GoRoute(path: '/health/hps', builder: (_, __) => const HPSDetailScreen()),
+    GoRoute(path: '/health/shs', builder: (_, __) => const SHSDetailScreen()),
+    GoRoute(path: '/health/oes', builder: (_, __) => const OESDetailScreen()),
+    GoRoute(path: '/health/gos', builder: (_, __) => const GOSDetailScreen()),
     GoRoute(path: '/health/detail', builder: (_, __) => const HealthScoreDetailScreen()),
     GoRoute(path: '/health/comparison', builder: (_, __) => const HealthComparisonScreen()),
     GoRoute(path: '/health/history', builder: (_, __) => const ScoreHistoryScreen()),
-    GoRoute(path: '/health/tips', builder: (_, __) => const ScoreImprovementScreen()),
-    GoRoute(path: '/health/certificate', builder: (_, __) => const ScoreCertificateScreen()),
 
     // ── AI Advisor sub-routes ──────────────────────────────────────────────
     GoRoute(path: '/ai-advisor/chat', builder: (_, __) => const AIChatScreen()),
@@ -146,7 +162,12 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/ca/settings', builder: (_, __) => const CASettingsScreen()),
 
     // ── Integrations ───────────────────────────────────────────────────────
-    GoRoute(path: '/integrations', builder: (_, __) => const IntegrationsHubScreen()),
+    GoRoute(
+      path: '/integrations/compliance/:type',
+      builder: (_, state) => ComplianceIntegrationScreen(
+        complianceType: state.pathParameters['type'] ?? '',
+      ),
+    ),
     GoRoute(path: '/integrations/tally', builder: (_, __) => const TallyConnectScreen()),
     GoRoute(path: '/integrations/bank', builder: (_, __) => const BankStatementScreen()),
     GoRoute(path: '/integrations/zoho', builder: (_, __) => const ZohoBooksScreen()),
@@ -154,7 +175,6 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/integrations/excel', builder: (_, __) => const ExcelUploadScreen()),
 
     // ── Profile & Settings ─────────────────────────────────────────────────
-    GoRoute(path: '/profile', builder: (_, __) => const ProfileScreen()),
     GoRoute(path: '/settings/business', builder: (_, __) => const BusinessSettingsScreen()),
     GoRoute(path: '/settings/security', builder: (_, __) => const SecuritySettingsScreen()),
     GoRoute(path: '/settings/subscription', builder: (_, __) => const SubscriptionScreen()),

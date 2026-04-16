@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "75324737002",
+    "project_id": "bizhealth360-dev-123",
+    "storage_bucket": "bizhealth360-dev-123.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75324737002:android:fbda52821480f291da5e93",
+        "android_client_info": {
+          "package_name": "com.bizheath360.bizheath360"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwxVKf9acZit2JcgFqDhVbJEqUiiNGZck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

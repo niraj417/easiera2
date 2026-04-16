@@ -54,7 +54,7 @@ class DocumentVaultScreen extends StatelessWidget {
                   Text('Storage Used', style: AppTypography.labelMedium.copyWith(color: Colors.white70)),
                   Text('234 MB of 5 GB', style: AppTypography.headlineLarge.copyWith(color: Colors.white)),
                   const SizedBox(height: 8),
-                  SizedBox(width: 200, child: ClipRRect(borderRadius: BorderRadius.circular(4), child: LinearProgressIndicator(value: 0.05, backgroundColor: Colors.white24, valueColor: const AlwaysStoppedAnimation<Color>(AppColors.goldAccent), minHeight: 6))),
+                  SizedBox(width: 200, child: ClipRRect(borderRadius: BorderRadius.circular(4), child: const LinearProgressIndicator(value: 0.05, backgroundColor: Colors.white24, valueColor: AlwaysStoppedAnimation<Color>(AppColors.goldAccent), minHeight: 6))),
                 ]),
                 const Spacer(),
                 const Icon(Icons.folder_rounded, color: AppColors.goldAccent, size: 48),
@@ -131,7 +131,7 @@ class _UploadDocumentScreenState extends State<UploadDocumentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Upload Document'),
+      appBar: const BHAppBar(title: 'Upload Document'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: _uploaded ? _SuccessUpload(onOCR: () => context.push('/documents/ocr'), onVault: () => context.pop()) : Column(
@@ -159,7 +159,7 @@ class _UploadDocumentScreenState extends State<UploadDocumentScreen> {
             const SizedBox(height: 20),
             Text('Document Details', style: AppTypography.headlineMedium),
             const SizedBox(height: 12),
-            _InputField('Document Name', 'e.g. GSTR-3B December 2024'),
+            const _InputField('Document Name', 'e.g. GSTR-3B December 2024'),
             const SizedBox(height: 12),
             Text('Category', style: AppTypography.labelMedium.copyWith(fontWeight: FontWeight.w500)),
             const SizedBox(height: 6),
@@ -173,7 +173,7 @@ class _UploadDocumentScreenState extends State<UploadDocumentScreen> {
               );
             }).toList()),
             const SizedBox(height: 12),
-            _InputField('Document Date', 'DD-MM-YYYY'),
+            const _InputField('Document Date', 'DD-MM-YYYY'),
             const SizedBox(height: 24),
             Row(children: [
               const Icon(Icons.auto_awesome_rounded, color: AppColors.goldAccent, size: 16),
@@ -207,7 +207,7 @@ class _InputField extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(label, style: AppTypography.labelMedium.copyWith(fontWeight: FontWeight.w500)),
       const SizedBox(height: 6),
-      TextField(decoration: InputDecoration(hintText: hint, filled: true, fillColor: Colors.white, border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppColors.borderLight)), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppColors.borderLight)))),
+      TextField(decoration: InputDecoration(hintText: hint, filled: true, fillColor: Colors.white, border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppColors.borderLight)), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppColors.borderLight)))),
     ]);
   }
 }
@@ -220,7 +220,7 @@ class _SuccessUpload extends StatelessWidget {
     return Center(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         const SizedBox(height: 40),
-        Container(width: 80, height: 80, decoration: BoxDecoration(gradient: AppColors.greenGradient, shape: BoxShape.circle), child: const Icon(Icons.check_rounded, color: Colors.white, size: 44)).animate().scale(duration: 600.ms, curve: Curves.elasticOut),
+        Container(width: 80, height: 80, decoration: const BoxDecoration(gradient: AppColors.greenGradient, shape: BoxShape.circle), child: const Icon(Icons.check_rounded, color: Colors.white, size: 44)).animate().scale(duration: 600.ms, curve: Curves.elasticOut),
         const SizedBox(height: 20),
         Text('Upload Successful!', style: AppTypography.displayMedium).animate().fadeIn(delay: 300.ms),
         const SizedBox(height: 8),
@@ -262,7 +262,7 @@ class _OCRProcessingScreenState extends State<OCRProcessingScreen> with SingleTi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'AI OCR Processing'),
+      appBar: const BHAppBar(title: 'AI OCR Processing'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: _complete ? _OCRResults() : Column(
@@ -271,7 +271,7 @@ class _OCRProcessingScreenState extends State<OCRProcessingScreen> with SingleTi
             const SizedBox(height: 40),
             RotationTransition(
               turns: _rotController,
-              child: Container(width: 80, height: 80, decoration: BoxDecoration(gradient: AppColors.goldGradient, shape: BoxShape.circle), child: const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 40)),
+              child: Container(width: 80, height: 80, decoration: const BoxDecoration(gradient: AppColors.goldGradient, shape: BoxShape.circle), child: const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 40)),
             ),
             const SizedBox(height: 24),
             Text('AI Extracting Data...', style: AppTypography.headlineLarge),
@@ -347,7 +347,7 @@ class DocumentPreviewScreen extends StatelessWidget {
             Text('GSTR-3B_Dec2024.pdf', style: AppTypography.headlineMedium),
             Text('234 KB • 3 pages', style: AppTypography.bodySmall),
             const SizedBox(height: 12),
-            VerificationBadge(isVerified: true),
+            const VerificationBadge(isVerified: true),
           ]),
         ),
         Expanded(
@@ -381,7 +381,7 @@ class DocumentCategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'GST Documents'),
+      appBar: const BHAppBar(title: 'GST Documents'),
       backgroundColor: AppColors.surfaceBackground,
       body: ListView.separated(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -398,7 +398,7 @@ class VersionHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Version History'),
+      appBar: const BHAppBar(title: 'Version History'),
       body: ListView.builder(
         padding: const EdgeInsets.all(AppSpacing.lg),
         itemCount: 4,

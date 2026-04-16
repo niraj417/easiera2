@@ -4,9 +4,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_spacing.dart';
-import '../../widgets/cards/bh_cards.dart';
-import '../../widgets/indicators/bh_indicators.dart';
-import '../../widgets/navigation/bh_navigation.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -127,12 +124,14 @@ class _ResultList extends StatelessWidget {
   const _ResultList({required this.items});
   @override
   Widget build(BuildContext context) {
-    if (items.isEmpty) return Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+    if (items.isEmpty) {
+      return Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       const Icon(Icons.search_off_rounded, size: 64, color: AppColors.neutralGrey),
       const SizedBox(height: 12),
       Text('No results found', style: AppTypography.headlineMedium.copyWith(color: AppColors.textSecondary)),
       Text('Try a different search term', style: AppTypography.bodySmall),
     ]));
+    }
     return ListView.separated(
       padding: const EdgeInsets.all(AppSpacing.lg),
       itemCount: items.length,

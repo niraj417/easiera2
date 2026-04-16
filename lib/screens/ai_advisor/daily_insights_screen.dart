@@ -5,7 +5,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../widgets/buttons/bh_button.dart';
-import '../../widgets/indicators/bh_indicators.dart';
 import '../../widgets/navigation/bh_navigation.dart';
 
 // AI Advisor — additional screens
@@ -80,7 +79,7 @@ class SavedInsightsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Saved Insights'),
+      appBar: const BHAppBar(title: 'Saved Insights'),
       backgroundColor: AppColors.surfaceBackground,
       body: ListView.separated(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -102,7 +101,7 @@ class SavedInsightsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(AppSpacing.lg),
               decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(AppRadius.card), border: Border.all(color: AppColors.borderLight)),
               child: Row(children: [
-                Container(width: 36, height: 36, decoration: BoxDecoration(color: AppColors.lightGold, shape: BoxShape.circle), child: const Icon(Icons.bookmark_rounded, color: AppColors.goldAccent, size: 18)),
+                Container(width: 36, height: 36, decoration: const BoxDecoration(color: AppColors.lightGold, shape: BoxShape.circle), child: const Icon(Icons.bookmark_rounded, color: AppColors.goldAccent, size: 18)),
                 const SizedBox(width: 12),
                 Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(item['title']!, style: AppTypography.labelLarge),
@@ -123,7 +122,7 @@ class FinancialInsightsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Financial Insights'),
+      appBar: const BHAppBar(title: 'Financial Insights'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -131,7 +130,7 @@ class FinancialInsightsScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(AppSpacing.xl),
             decoration: BoxDecoration(gradient: AppColors.greenGradient, borderRadius: BorderRadius.circular(16)),
-            child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            child: const Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
               _FinStat('Revenue', '₹24.3L', '/month'),
               _FinStat('Tax Liability', '₹1.24L', 'this month'),
               _FinStat('Net Savings', '₹23.1L', 'post tax'),
@@ -180,7 +179,7 @@ class RiskAlertsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Compliance Risk Alerts'),
+      appBar: const BHAppBar(title: 'Compliance Risk Alerts'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),

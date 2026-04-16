@@ -31,11 +31,12 @@ class BHBottomNavBar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: Row(
             children: [
-              _NavItem(icon: Icons.dashboard_rounded, label: 'Dashboard', index: 0, currentIndex: currentIndex, onTap: onTap),
-              _NavItem(icon: Icons.task_alt_rounded, label: 'Compliance', index: 1, currentIndex: currentIndex, onTap: onTap),
-              _NavItem(icon: Icons.monitor_heart_rounded, label: 'BizScore', index: 2, currentIndex: currentIndex, onTap: onTap),
-              _NavItem(icon: Icons.psychology_rounded, label: 'AI Advisor', index: 3, currentIndex: currentIndex, onTap: onTap),
-              _NavItem(icon: Icons.person_rounded, label: 'Profile', index: 4, currentIndex: currentIndex, onTap: onTap),
+              _NavItem(icon: Icons.dashboard_rounded, label: 'Dash', index: 0, currentIndex: currentIndex, onTap: onTap),
+              _NavItem(icon: Icons.task_alt_rounded, label: 'Comp', index: 1, currentIndex: currentIndex, onTap: onTap),
+              _NavItem(icon: Icons.monitor_heart_rounded, label: 'Biz', index: 2, currentIndex: currentIndex, onTap: onTap),
+              _NavItem(icon: Icons.psychology_rounded, label: 'Advice', index: 3, currentIndex: currentIndex, onTap: onTap),
+              _NavItem(icon: Icons.api_rounded, label: 'Links', index: 4, currentIndex: currentIndex, onTap: onTap),
+              _NavItem(icon: Icons.person_outline_rounded, label: 'Profile', index: 5, currentIndex: currentIndex, onTap: onTap),
             ],
           ),
         ),
@@ -186,12 +187,52 @@ class BHDashboardHeader extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(companyName, style: AppTypography.labelLarge, overflow: TextOverflow.ellipsis),
-                Text(gstin, style: AppTypography.labelSmall),
+            child: PopupMenuButton<String>(
+              offset: const Offset(0, 40),
+              position: PopupMenuPosition.under,
+              onSelected: (value) {
+                if (value == 'add_account') {
+                  context.push('/setup/pan');
+                } else {
+                  // Switch account logic would go here
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Switched to $value')),
+                  );
+                }
+              },
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 'Sharma Trading Pvt. Ltd.',
+                  child: Text('Sharma Trading Pvt. Ltd.', style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                const PopupMenuItem(
+                  value: 'Global Logistics',
+                  child: Text('Global Logistics'),
+                ),
+                const PopupMenuDivider(),
+                const PopupMenuItem(
+                  value: 'add_account',
+                  child: Row(
+                    children: [
+                      Icon(Icons.add_circle_outline, size: 20, color: AppColors.primaryBlue),
+                      SizedBox(width: 8),
+                      Text('Add New Account', style: TextStyle(color: AppColors.primaryBlue)),
+                    ],
+                  ),
+                ),
               ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(child: Text(companyName, style: AppTypography.labelLarge, overflow: TextOverflow.ellipsis)),
+                      const Icon(Icons.keyboard_arrow_down_rounded, size: 18, color: AppColors.textSecondary),
+                    ],
+                  ),
+                  Text(gstin, style: AppTypography.labelSmall),
+                ],
+              ),
             ),
           ),
           IconButton(

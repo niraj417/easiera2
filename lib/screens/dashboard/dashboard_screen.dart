@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_spacing.dart';
-import '../../core/utils/india_formatter.dart';
 import '../../widgets/cards/bh_cards.dart';
-import '../../widgets/charts/gauge_chart.dart';
 import '../../widgets/indicators/bh_indicators.dart';
 import '../../widgets/navigation/bh_navigation.dart';
 
@@ -38,48 +37,8 @@ class DashboardScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Hero Compliance Score Card
-                  Container(
-                    padding: const EdgeInsets.all(AppSpacing.xl),
-                    decoration: BoxDecoration(
-                      gradient: AppColors.primaryGradient,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                              Text('Compliance Health', style: AppTypography.labelMedium.copyWith(color: Colors.white70)),
-                              Text('Score', style: AppTypography.headlineLarge.copyWith(color: Colors.white)),
-                            ]),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                              decoration: BoxDecoration(color: AppColors.goldAccent.withOpacity(0.2), borderRadius: BorderRadius.circular(20), border: Border.all(color: AppColors.goldAccent.withOpacity(0.4))),
-                              child: Row(children: [
-                                const Icon(Icons.trending_up, color: AppColors.goldAccent, size: 14),
-                                const SizedBox(width: 4),
-                                Text('+4 pts this month', style: AppTypography.labelSmall.copyWith(color: AppColors.goldAccent)),
-                              ]),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        GaugeChart(score: 78, label: 'Overall Health', size: 200),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            _MiniScore('GST', 85, AppColors.statusGreen),
-                            _MiniScore('Income Tax', 72, AppColors.statusAmber),
-                            _MiniScore('Labour', 80, AppColors.statusGreen),
-                            _MiniScore('Licences', 65, AppColors.statusAmber),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ).animate().fadeIn(duration: 500.ms),
+                  // Hero BHS Meter Card
+                  _BHSMeterCard().animate().fadeIn(duration: 500.ms),
                   const SizedBox(height: AppSpacing.lg),
                   // Quick Actions
                   Text('Quick Actions', style: AppTypography.headlineMedium),
@@ -108,7 +67,7 @@ class DashboardScreen extends StatelessWidget {
                       children: [
                         Container(
                           width: 40, height: 40,
-                          decoration: BoxDecoration(gradient: AppColors.goldGradient, shape: BoxShape.circle),
+                          decoration: const BoxDecoration(gradient: AppColors.goldGradient, shape: BoxShape.circle),
                           child: const Icon(Icons.psychology_rounded, color: Colors.white, size: 20),
                         ),
                         const SizedBox(width: 12),
@@ -159,7 +118,7 @@ class DashboardScreen extends StatelessWidget {
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 10,
                     childAspectRatio: 1.3,
-                    children: [
+                    children: const [
                       StatCard(label: 'Monthly Revenue', value: '₹24.3L', change: '+12%', isPositive: true, color: AppColors.primaryBlue, icon: Icons.currency_rupee_rounded),
                       StatCard(label: 'Active Compliances', value: '24', change: '', isPositive: true, color: AppColors.verifiedTeal, icon: Icons.task_alt_rounded),
                       StatCard(label: 'Pending Actions', value: '3', change: '-2', isPositive: true, color: AppColors.statusAmber, icon: Icons.pending_actions_rounded),
@@ -189,18 +148,123 @@ class DashboardScreen extends StatelessWidget {
   }
 }
 
-class _MiniScore extends StatelessWidget {
-  final String label;
-  final int score;
-  final Color color;
-  const _MiniScore(this.label, this.score, this.color);
+// ─── BHS Meter Card (same meter as BHS Dashboard) ─────────────────────────
+
+class _BHSMeterCard extends StatelessWidget {
+  // Mirrors the score data from health_score_dashboard_screen.dart
+  static const double _overallScore = 78.0;
+  static const List<Map<String, dynamic>> _categories = [
+    {'label': 'CHS', 'score': 82,  'color': Color(0xFF1A5FB4)},
+    {'label': 'FHS', 'score': 75,  'color': Color(0xFF22C55E)},
+    {'label': 'HPS', 'score': 68,  'color': Color(0xFF8B5CF6)},
+    {'label': 'SHS', 'score': 0,   'color': Color(0xFF0D9488), 'pending': true},
+    {'label': 'OES', 'score': 71,  'color': Color(0xFFF59E0B)},
+    {'label': 'GOS', 'score': 85,  'color': Color(0xFFF5B800)},
+  ];
+
+  const _BHSMeterCard();
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text('$score', style: AppTypography.headlineMedium.copyWith(color: Colors.white, fontWeight: FontWeight.w700)),
-        Text(label, style: AppTypography.labelSmall.copyWith(color: Colors.white60)),
-      ],
+    const percent = _overallScore / 100;
+    const ratingColor = AppColors.gradeAA;
+    return GestureDetector(
+      onTap: () => context.push('/health'),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          gradient: AppColors.primaryGradient,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [BoxShadow(color: AppColors.primaryNavy.withOpacity(0.3), blurRadius: 20, offset: const Offset(0, 8))],
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('BizHealth Score™', style: AppTypography.labelMedium.copyWith(color: Colors.white70)),
+                  Text('Overall BHS', style: AppTypography.headlineLarge.copyWith(color: Colors.white)),
+                ]),
+                Row(children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: ratingColor.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: ratingColor.withOpacity(0.5)),
+                    ),
+                    child: Row(children: [
+                      const Icon(Icons.star_rounded, color: ratingColor, size: 13),
+                      const SizedBox(width: 4),
+                      Text('AA', style: AppTypography.labelMedium.copyWith(color: ratingColor, fontWeight: FontWeight.w800)),
+                    ]),
+                  ),
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: AppColors.goldAccent.withOpacity(0.18),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: AppColors.goldAccent.withOpacity(0.4)),
+                    ),
+                    child: Row(children: [
+                      const Icon(Icons.trending_up_rounded, color: AppColors.goldAccent, size: 13),
+                      const SizedBox(width: 4),
+                      Text('+4 pts', style: AppTypography.labelSmall.copyWith(color: AppColors.goldAccent)),
+                    ]),
+                  ),
+                ]),
+              ],
+            ),
+            const SizedBox(height: 20),
+            CircularPercentIndicator(
+              radius: 90,
+              lineWidth: 14,
+              percent: percent.clamp(0.0, 1.0),
+              center: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('${_overallScore.round()}', style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w800, color: Colors.white)),
+                  Text('/100', style: AppTypography.bodySmall.copyWith(color: Colors.white60)),
+                ],
+              ),
+              progressColor: ratingColor,
+              backgroundColor: Colors.white.withOpacity(0.15),
+              circularStrokeCap: CircularStrokeCap.round,
+              animation: true,
+              animationDuration: 1200,
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text('Good — Tap to view full BHS', style: AppTypography.labelMedium.copyWith(color: Colors.white)),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: _categories.map((c) => Column(
+                children: [
+                  Text(c['label'] as String, style: AppTypography.labelSmall.copyWith(color: Colors.white60, fontSize: 9)),
+                  const SizedBox(height: 2),
+                  Text(
+                    (c['pending'] == true) ? '--' : '${c['score']}',
+                    style: AppTypography.labelMedium.copyWith(
+                      color: (c['pending'] == true) ? Colors.white38 : (c['color'] as Color),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              )).toList(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

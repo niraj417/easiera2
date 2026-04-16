@@ -15,15 +15,15 @@ class FSSAIDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'FSSAI Licence'),
+      appBar: const BHAppBar(title: 'FSSAI Licence'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          _LicenceHeader(title: 'FSSAI Food Business Licence', licenceNo: '11226098000001', validTill: '31-03-2026', status: 'Active', color: AppColors.goldAccent, icon: Icons.restaurant_rounded),
+          const _LicenceHeader(title: 'FSSAI Food Business Licence', licenceNo: '11226098000001', validTill: '31-03-2026', status: 'Active', color: AppColors.goldAccent, icon: Icons.restaurant_rounded),
           const SizedBox(height: 20),
           Text('Licence Details', style: AppTypography.headlineMedium),
           const SizedBox(height: 12),
-          _DetailCard([
+          const _DetailCard([
             {'label': 'Licence Type', 'value': 'State Licence'},
             {'label': 'Food Category', 'value': 'Packaged Food'},
             {'label': 'Issued Date', 'value': '01-04-2023'},
@@ -45,11 +45,11 @@ class ShopActScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Shop & Establishment'),
+      appBar: const BHAppBar(title: 'Shop & Establishment'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          _LicenceHeader(title: 'Shop & Establishment Registration', licenceNo: 'MH-MUM-S123456', validTill: '15-01-2025', status: 'Due Soon', color: AppColors.statusAmber, icon: Icons.storefront_rounded),
+          const _LicenceHeader(title: 'Shop & Establishment Registration', licenceNo: 'MH-MUM-S123456', validTill: '15-01-2025', status: 'Due Soon', color: AppColors.statusAmber, icon: Icons.storefront_rounded),
           const SizedBox(height: 20),
           Container(padding: const EdgeInsets.all(AppSpacing.lg), decoration: BoxDecoration(color: AppColors.lightAmber, borderRadius: BorderRadius.circular(AppRadius.card), border: Border.all(color: AppColors.statusAmber.withOpacity(0.3))), child: Row(children: [
             const Icon(Icons.warning_rounded, color: AppColors.statusAmber),
@@ -69,11 +69,11 @@ class FactoryLicenseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Factory Licence'),
+      appBar: const BHAppBar(title: 'Factory Licence'),
       body: Center(child: Padding(
         padding: const EdgeInsets.all(AppSpacing.xxl),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(width: 80, height: 80, decoration: BoxDecoration(color: AppColors.lightBlue, shape: BoxShape.circle), child: const Icon(Icons.factory_rounded, color: AppColors.primaryBlue, size: 40)),
+          Container(width: 80, height: 80, decoration: const BoxDecoration(color: AppColors.lightBlue, shape: BoxShape.circle), child: const Icon(Icons.factory_rounded, color: AppColors.primaryBlue, size: 40)),
           const SizedBox(height: 16),
           Text('Not Applicable', style: AppTypography.headlineLarge),
           const SizedBox(height: 8),
@@ -91,13 +91,13 @@ class PollutionBoardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Pollution Board NOC'),
+      appBar: const BHAppBar(title: 'Pollution Board NOC'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          _LicenceHeader(title: 'Pollution Board NOC — Consent to Operate', licenceNo: 'PCB-KA-2024-001234', validTill: '30-06-2025', status: 'Active', color: AppColors.statusGreen, icon: Icons.eco_rounded),
+          const _LicenceHeader(title: 'Pollution Board NOC — Consent to Operate', licenceNo: 'PCB-KA-2024-001234', validTill: '30-06-2025', status: 'Active', color: AppColors.statusGreen, icon: Icons.eco_rounded),
           const SizedBox(height: 20),
-          _DetailCard([
+          const _DetailCard([
             {'label': 'Category', 'value': 'Green Category'},
             {'label': 'Consent Type', 'value': 'Consent to Operate (CTO)'},
             {'label': 'Issued By', 'value': 'KSPCB'},
@@ -116,16 +116,16 @@ class TrademarkScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Trademark'),
+      appBar: const BHAppBar(title: 'Trademark'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          _LicenceHeader(title: 'Trademark Registration — Class 29', licenceNo: 'TM-2024-5678901', validTill: 'Pending (Applied)', status: 'Pending', color: AppColors.statusAmber, icon: Icons.verified_rounded),
+          const _LicenceHeader(title: 'Trademark Registration — Class 29', licenceNo: 'TM-2024-5678901', validTill: 'Pending (Applied)', status: 'Pending', color: AppColors.statusAmber, icon: Icons.verified_rounded),
           const SizedBox(height: 20),
           Container(padding: const EdgeInsets.all(AppSpacing.lg), decoration: BoxDecoration(color: AppColors.lightAmber, borderRadius: BorderRadius.circular(AppRadius.card)), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('Application Status', style: AppTypography.labelLarge),
             const SizedBox(height: 12),
-            ProgressBarWidget(label: 'Examination Stage', value: 0.4, color: AppColors.statusAmber, trailingLabel: '40%'),
+            const ProgressBarWidget(label: 'Examination Stage', value: 0.4, color: AppColors.statusAmber, trailingLabel: '40%'),
           ])),
           const SizedBox(height: 16),
           BHButton(label: 'Track Application', onPressed: () {}, leadingIcon: Icons.track_changes_rounded),
@@ -140,13 +140,13 @@ class PFESIScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'PF & ESI Compliance'),
+      appBar: const BHAppBar(title: 'PF & ESI Compliance'),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
-          _StatsRow('PF UAN', 'MHROJ1234567890000', '8 Employees'),
+          const _StatsRow('PF UAN', 'MHROJ1234567890000', '8 Employees'),
           const SizedBox(height: 12),
-          _StatsRow('ESI Number', 'KA1234567890001', '₹12,450 last month'),
+          const _StatsRow('ESI Number', 'KA1234567890001', '₹12,450 last month'),
           const SizedBox(height: 20),
           Text('Monthly Returns', style: AppTypography.headlineMedium),
           const SizedBox(height: 12),
@@ -161,7 +161,7 @@ class PFESIScreen extends StatelessWidget {
                   Text(['Filed 15-12-2024', 'Filed 15-12-2024', 'Filed 15-11-2024', 'Filed 15-11-2024'][i], style: AppTypography.bodySmall),
                 ]),
                 const Spacer(),
-                StatusChip(label: 'Compliant', status: 'compliant'),
+                const StatusChip(label: 'Compliant', status: 'compliant'),
               ]),
             ),
           )),
@@ -175,7 +175,6 @@ class ComplianceCalendarScreen extends StatelessWidget {
   const ComplianceCalendarScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     final events = [
       {'day': 7, 'title': 'TDS Payment', 'color': 0xFF1A5FB4},
       {'day': 11, 'title': 'GSTR-1', 'color': 0xFF0D9488},
@@ -185,7 +184,7 @@ class ComplianceCalendarScreen extends StatelessWidget {
       {'day': 31, 'title': 'TDS Return', 'color': 0xFFEF4444},
     ];
     return Scaffold(
-      appBar: BHAppBar(title: 'Compliance Calendar'),
+      appBar: const BHAppBar(title: 'Compliance Calendar'),
       body: Column(children: [
         Container(
           padding: const EdgeInsets.all(AppSpacing.lg),
@@ -249,7 +248,7 @@ class AddComplianceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Add Compliance'),
+      appBar: const BHAppBar(title: 'Add Compliance'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -267,7 +266,7 @@ class AddComplianceScreen extends StatelessWidget {
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(f['label']!, style: AppTypography.labelMedium.copyWith(fontWeight: FontWeight.w500)),
               const SizedBox(height: 6),
-              TextField(decoration: InputDecoration(hintText: f['hint'], filled: true, fillColor: Colors.white, border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppColors.borderLight)), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppColors.borderLight)))),
+              TextField(decoration: InputDecoration(hintText: f['hint'], filled: true, fillColor: Colors.white, border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppColors.borderLight)), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppColors.borderLight)))),
             ]),
           )),
           const SizedBox(height: 8),
@@ -283,7 +282,7 @@ class ComplianceHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Compliance History'),
+      appBar: const BHAppBar(title: 'Compliance History'),
       backgroundColor: AppColors.surfaceBackground,
       body: ListView.separated(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -297,7 +296,7 @@ class ComplianceHistoryScreen extends StatelessWidget {
             padding: const EdgeInsets.all(AppSpacing.lg),
             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(AppRadius.card), border: Border.all(color: AppColors.borderLight)),
             child: Row(children: [
-              Container(width: 40, height: 40, decoration: BoxDecoration(color: AppColors.lightGreen, shape: BoxShape.circle), child: const Icon(Icons.check_rounded, color: AppColors.statusGreen)),
+              Container(width: 40, height: 40, decoration: const BoxDecoration(color: AppColors.lightGreen, shape: BoxShape.circle), child: const Icon(Icons.check_rounded, color: AppColors.statusGreen)),
               const SizedBox(width: 12),
               Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text('${categories[i % 6]} — ${months[i % 6]}', style: AppTypography.labelLarge),
@@ -317,7 +316,7 @@ class VerificationRequestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Request Verification'),
+      appBar: const BHAppBar(title: 'Request Verification'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

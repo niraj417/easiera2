@@ -16,7 +16,7 @@ class IntegrationsHubScreen extends StatefulWidget {
 }
 
 class _IntegrationsHubScreenState extends State<IntegrationsHubScreen> {
-  final Map<String, bool> _connected = {'Tally Prime': true, 'Zoho Books': false, 'QuickBooks': false, 'Bank (HDFC)': true, 'Bank (SBI)': false, 'TRACES Portal': true};
+  final Map<String, bool> _connected = {'Tally Prime': true, 'Zoho Books': false, 'QuickBooks': false, 'Bank (HDFC)': true, 'Bank (SBI)': false, 'TRACES Portal': true, 'FSSAI': false, 'ROC (MCA)': false, 'GST': false};
 
   final List<Map<String, dynamic>> _integrations = const [
     {'name': 'Tally Prime', 'category': 'Accounting', 'icon': Icons.receipt, 'color': 0xFF1A5FB4, 'desc': 'Sync vouchers & balance sheet'},
@@ -24,6 +24,9 @@ class _IntegrationsHubScreenState extends State<IntegrationsHubScreen> {
     {'name': 'QuickBooks', 'category': 'Accounting', 'icon': Icons.calculate, 'color': 0xFF6366F1, 'desc': 'Cloud accounting sync'},
     {'name': 'Bank (HDFC)', 'category': 'Banking', 'icon': Icons.account_balance_wallet, 'color': 0xFFF5B800, 'desc': 'Auto bank statement fetch'},
     {'name': 'Bank (SBI)', 'category': 'Banking', 'icon': Icons.account_balance_wallet, 'color': 0xFF0D9488, 'desc': 'Real-time payment alerts'},
+    {'name': 'FSSAI', 'category': 'Compliances', 'icon': Icons.restaurant_menu_rounded, 'color': 0xFFF59E0B, 'desc': 'License status & renewal sync'},
+    {'name': 'ROC (MCA)', 'category': 'Compliances', 'icon': Icons.gavel_rounded, 'color': 0xFF1A5FB4, 'desc': 'Sync CIN & master data'},
+    {'name': 'GST', 'category': 'Compliances', 'icon': Icons.payments_rounded, 'color': 0xFF6366F1, 'desc': 'GSTIN status & return tracking'},
     {'name': 'TRACES Portal', 'category': 'Government', 'icon': Icons.business_center, 'color': 0xFFEF4444, 'desc': 'Auto TDS certificate download'},
     {'name': 'MCA21 Portal', 'category': 'Government', 'icon': Icons.domain, 'color': 0xFF1A5FB4, 'desc': 'ROC filing status sync'},
     {'name': 'IEC/DGFT', 'category': 'Government', 'icon': Icons.import_export, 'color': 0xFF6366F1, 'desc': 'Import Export Code management'},
@@ -33,9 +36,9 @@ class _IntegrationsHubScreenState extends State<IntegrationsHubScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final categories = ['Accounting', 'Banking', 'Government', 'HR System'];
+    final categories = ['Compliances', 'Accounting', 'Banking', 'Government', 'HR System'];
     return Scaffold(
-      appBar: BHAppBar(title: 'Integrations Hub'),
+      appBar: const BHAppBar(title: 'Integrations Hub'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -52,23 +55,40 @@ class _IntegrationsHubScreenState extends State<IntegrationsHubScreen> {
                 ),
                 ...items.map((item) {
                   final isConnected = _connected[item['name']] ?? false;
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    padding: const EdgeInsets.all(AppSpacing.lg),
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(AppRadius.card), border: Border.all(color: isConnected ? Color(item['color'] as int).withOpacity(0.3) : AppColors.borderLight, width: isConnected ? 1.5 : 1)),
-                    child: Row(children: [
-                      Container(width: 44, height: 44, decoration: BoxDecoration(color: Color(item['color'] as int).withOpacity(0.12), borderRadius: BorderRadius.circular(8)), child: Icon(item['icon'] as IconData, color: Color(item['color'] as int), size: 24)),
-                      const SizedBox(width: 12),
-                      Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(item['name'] as String, style: AppTypography.labelLarge),
-                        Text(item['desc'] as String, style: AppTypography.bodySmall),
-                      ])),
-                      Switch(
-                        value: isConnected,
-                        activeColor: Color(item['color'] as int),
-                        onChanged: (v) => setState(() => _connected[item['name'] as String] = v),
+                  return InkWell(
+                    onTap: cat == 'Compliances' 
+                      ? () => context.push('/integrations/compliance/${item['name'].toString().split(' ')[0].toLowerCase()}')
+                      : null,
+                    borderRadius: BorderRadius.circular(AppRadius.card),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.all(AppSpacing.lg),
+                      decoration: BoxDecoration(
+                        color: Colors.white, 
+                        borderRadius: BorderRadius.circular(AppRadius.card), 
+                        border: Border.all(
+                          color: isConnected ? Color(item['color'] as int).withOpacity(0.3) : AppColors.borderLight, 
+                          width: isConnected ? 1.5 : 1
+                        )
                       ),
-                    ]),
+                      child: Row(children: [
+                        Container(width: 44, height: 44, decoration: BoxDecoration(color: Color(item['color'] as int).withOpacity(0.12), borderRadius: BorderRadius.circular(8)), child: Icon(item['icon'] as IconData, color: Color(item['color'] as int), size: 24)),
+                        const SizedBox(width: 12),
+                        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          Text(item['name'] as String, style: AppTypography.labelLarge),
+                          Text(item['desc'] as String, style: AppTypography.bodySmall),
+                        ])),
+                        if (cat == 'Compliances')
+                          Icon(isConnected ? Icons.check_circle_rounded : Icons.arrow_forward_ios_rounded, 
+                               color: isConnected ? AppColors.statusGreen : AppColors.neutralGrey, size: 20)
+                        else
+                          Switch(
+                            value: isConnected,
+                            activeThumbColor: Color(item['color'] as int),
+                            onChanged: (v) => setState(() => _connected[item['name'] as String] = v),
+                          ),
+                      ]),
+                    ),
                   ).animate().fadeIn(delay: 100.ms);
                 }),
                 const SizedBox(height: 8),
@@ -86,7 +106,7 @@ class TallyConnectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Tally Prime Integration'),
+      appBar: const BHAppBar(title: 'Tally Prime Integration'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -137,7 +157,7 @@ class BankStatementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Bank Statement AI'),
+      appBar: const BHAppBar(title: 'Bank Statement AI'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -148,7 +168,7 @@ class BankStatementScreen extends StatelessWidget {
               Text('HDFC Bank — Current Account', style: AppTypography.headlineLarge.copyWith(color: Colors.white)),
               Text('A/c: ****7890', style: AppTypography.bodySmall.copyWith(color: Colors.white60)),
               const SizedBox(height: 16),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              const Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                 _BankStat('Balance', '₹12.4L'),
                 _BankStat('Credits', '₹24.3L'),
                 _BankStat('Debits', '₹11.9L'),

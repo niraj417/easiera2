@@ -5,7 +5,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../widgets/buttons/bh_button.dart';
-import '../../widgets/indicators/bh_indicators.dart';
 import '../../widgets/navigation/bh_navigation.dart';
 
 // Loan Marketplace — extra screens
@@ -25,7 +24,7 @@ class NBFCPartnersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Lending Partners'),
+      appBar: const BHAppBar(title: 'Lending Partners'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -92,7 +91,7 @@ class LoanApplicationStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Application Status'),
+      appBar: const BHAppBar(title: 'Application Status'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -104,7 +103,7 @@ class LoanApplicationStatusScreen extends StatelessWidget {
               Text('HDFC Business Loan', style: AppTypography.headlineLarge.copyWith(color: Colors.white)),
               Text('Ref: HDFC-2024-98765', style: AppTypography.dataMonoSmall.copyWith(color: Colors.white60)),
               const SizedBox(height: 16),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              const Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                 _AppStat('Amount', '₹50L'),
                 _AppStat('Interest', '11.5%'),
                 _AppStat('Status', 'Reviewing'),

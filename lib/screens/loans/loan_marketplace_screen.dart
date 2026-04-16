@@ -5,7 +5,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../widgets/buttons/bh_button.dart';
-import '../../widgets/indicators/bh_indicators.dart';
 import '../../widgets/navigation/bh_navigation.dart';
 
 // Loan Marketplace screens
@@ -123,7 +122,7 @@ class LoanEligibilityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Loan Eligibility'),
+      appBar: const BHAppBar(title: 'Loan Eligibility'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -175,7 +174,7 @@ class LoanOffersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'HDFC Bank Offer'),
+      appBar: const BHAppBar(title: 'HDFC Bank Offer'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -192,7 +191,7 @@ class LoanOffersScreen extends StatelessWidget {
                 ]),
               ]),
               const SizedBox(height: 20),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              const Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                 _LoanDetailPill('Amount', '₹50 Lakhs'),
                 _LoanDetailPill('Rate', '11.5% p.a.'),
                 _LoanDetailPill('EMI', '₹1,08,700'),
@@ -252,11 +251,11 @@ class _LoanApplicationScreenState extends State<LoanApplicationScreen> {
   Widget build(BuildContext context) {
     if (_submitted) {
       return Scaffold(
-        appBar: BHAppBar(title: 'Application Submitted'),
+        appBar: const BHAppBar(title: 'Application Submitted'),
         body: Center(child: Padding(
           padding: const EdgeInsets.all(AppSpacing.xxl),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(width: 80, height: 80, decoration: BoxDecoration(gradient: AppColors.greenGradient, shape: BoxShape.circle), child: const Icon(Icons.check_rounded, color: Colors.white, size: 44)),
+            Container(width: 80, height: 80, decoration: const BoxDecoration(gradient: AppColors.greenGradient, shape: BoxShape.circle), child: const Icon(Icons.check_rounded, color: Colors.white, size: 44)),
             const SizedBox(height: 24),
             Text('Application Submitted!', style: AppTypography.displayMedium),
             const SizedBox(height: 12),
@@ -268,7 +267,7 @@ class _LoanApplicationScreenState extends State<LoanApplicationScreen> {
       );
     }
     return Scaffold(
-      appBar: BHAppBar(title: 'Apply for Loan'),
+      appBar: const BHAppBar(title: 'Apply for Loan'),
       body: Column(children: [
         Padding(
           padding: const EdgeInsets.all(AppSpacing.lg),
@@ -284,21 +283,21 @@ class _LoanApplicationScreenState extends State<LoanApplicationScreen> {
             Text(['Business Information', 'Financial Details', 'Document Upload', 'Review & Submit'][_step - 1], style: AppTypography.headlineLarge),
             const SizedBox(height: 20),
             if (_step == 1) ...[
-              _AppField('Business Name', 'Sharma Trading Pvt. Ltd.'),
+              const _AppField('Business Name', 'Sharma Trading Pvt. Ltd.'),
               const SizedBox(height: 12),
-              _AppField('Type of Business', 'Private Limited'),
+              const _AppField('Type of Business', 'Private Limited'),
               const SizedBox(height: 12),
-              _AppField('Business Vintage', '6 Years'),
+              const _AppField('Business Vintage', '6 Years'),
               const SizedBox(height: 12),
-              _AppField('Loan Purpose', 'Working Capital / Expansion'),
+              const _AppField('Loan Purpose', 'Working Capital / Expansion'),
             ] else if (_step == 2) ...[
-              _AppField('Annual Turnover', '₹2,92,00,000'),
+              const _AppField('Annual Turnover', '₹2,92,00,000'),
               const SizedBox(height: 12),
-              _AppField('Loan Amount Required', '₹50,00,000'),
+              const _AppField('Loan Amount Required', '₹50,00,000'),
               const SizedBox(height: 12),
-              _AppField('Existing Loan EMI', '₹0'),
+              const _AppField('Existing Loan EMI', '₹0'),
               const SizedBox(height: 12),
-              _AppField('Preferred Tenure', '5 Years'),
+              const _AppField('Preferred Tenure', '5 Years'),
             ] else if (_step == 3) ...[
               ...[
                 'Last 6 months GST Returns',
@@ -315,11 +314,11 @@ class _LoanApplicationScreenState extends State<LoanApplicationScreen> {
               Container(padding: const EdgeInsets.all(AppSpacing.lg), decoration: BoxDecoration(color: AppColors.lightGreen, borderRadius: BorderRadius.circular(AppRadius.card), border: Border.all(color: AppColors.statusGreen.withOpacity(0.3))), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text('Application Summary', style: AppTypography.headlineMedium),
                 const SizedBox(height: 12),
-                _SummaryRow('Bank', 'HDFC Bank'),
-                _SummaryRow('Amount', '₹50 Lakhs'),
-                _SummaryRow('Rate', '11.5% p.a.'),
-                _SummaryRow('Tenure', '5 Years'),
-                _SummaryRow('EMI', '₹1,08,700/month'),
+                const _SummaryRow('Bank', 'HDFC Bank'),
+                const _SummaryRow('Amount', '₹50 Lakhs'),
+                const _SummaryRow('Rate', '11.5% p.a.'),
+                const _SummaryRow('Tenure', '5 Years'),
+                const _SummaryRow('EMI', '₹1,08,700/month'),
               ])),
             ],
           ]),
@@ -332,7 +331,11 @@ class _LoanApplicationScreenState extends State<LoanApplicationScreen> {
               const SizedBox(width: 12),
             ],
             Expanded(flex: 2, child: BHButton(label: _step == 4 ? 'Submit Application' : 'Continue', onPressed: () {
-              if (_step < 4) setState(() => _step++); else setState(() => _submitted = true);
+              if (_step < 4) {
+                setState(() => _step++);
+              } else {
+                setState(() => _submitted = true);
+              }
             }, trailingIcon: _step < 4 ? Icons.arrow_forward_rounded : Icons.send_rounded)),
           ]),
         ),
@@ -349,7 +352,7 @@ class _AppField extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(label, style: AppTypography.labelMedium.copyWith(fontWeight: FontWeight.w500)),
       const SizedBox(height: 6),
-      TextField(decoration: InputDecoration(hintText: hint, filled: true, fillColor: Colors.white, border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppColors.borderLight)), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppColors.borderLight)))),
+      TextField(decoration: InputDecoration(hintText: hint, filled: true, fillColor: Colors.white, border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppColors.borderLight)), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppColors.borderLight)))),
     ]);
   }
 }

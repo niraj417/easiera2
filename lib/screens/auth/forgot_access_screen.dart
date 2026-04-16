@@ -20,7 +20,7 @@ class _ForgotAccessScreenState extends State<ForgotAccessScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Recover Access'),
+      appBar: const BHAppBar(title: 'Recover Access'),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.xxl),
         child: _sent ? _SuccessView(onBack: () => context.go('/login')) : Column(
@@ -56,7 +56,7 @@ class _SuccessView extends StatelessWidget {
         children: [
           Container(
             width: 80, height: 80,
-            decoration: BoxDecoration(color: AppColors.lightGreen, shape: BoxShape.circle),
+            decoration: const BoxDecoration(color: AppColors.lightGreen, shape: BoxShape.circle),
             child: const Icon(Icons.check_circle_rounded, color: AppColors.statusGreen, size: 44),
           ),
           const SizedBox(height: 20),

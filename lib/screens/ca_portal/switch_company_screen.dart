@@ -5,8 +5,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../widgets/buttons/bh_button.dart';
-import '../../widgets/cards/bh_cards.dart';
-import '../../widgets/indicators/bh_indicators.dart';
 import '../../widgets/navigation/bh_navigation.dart';
 
 // CA Portal — extra screens
@@ -29,7 +27,7 @@ class _SwitchCompanyScreenState extends State<SwitchCompanyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Switch Company'),
+      appBar: const BHAppBar(title: 'Switch Company'),
       backgroundColor: AppColors.surfaceBackground,
       body: Column(children: [
         Expanded(
@@ -152,7 +150,7 @@ class CASettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'CA Settings'),
+      appBar: const BHAppBar(title: 'CA Settings'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),

@@ -18,21 +18,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   int _currentPage = 0;
 
   final List<_OnboardingData> _pages = [
-    _OnboardingData(
+    const _OnboardingData(
       icon: Icons.task_alt_rounded,
       iconColor: AppColors.primaryBlue,
       title: 'Virtual Compliance\nOfficer',
       description: 'Never miss a GST filing, licence renewal, or tax deadline again. Get real-time alerts for all 30+ compliances.',
       gradient: [AppColors.lightBlue, Colors.white],
     ),
-    _OnboardingData(
+    const _OnboardingData(
       icon: Icons.monitor_heart_rounded,
       iconColor: AppColors.verifiedTeal,
       title: 'Business Health\nScore (BizScore)',
       description: 'Know your company\'s financial fitness across 6 dimensions — from cashflow to growth, rated AAA to C.',
       gradient: [AppColors.lightTeal, Colors.white],
     ),
-    _OnboardingData(
+    const _OnboardingData(
       icon: Icons.psychology_rounded,
       iconColor: AppColors.goldAccent,
       title: 'AI Growth\nAdvisor',

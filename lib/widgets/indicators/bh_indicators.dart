@@ -256,10 +256,10 @@ class _LoadingSkeletonState extends State<LoadingSkeleton>
             gradient: LinearGradient(
               begin: Alignment(_animation.value - 1, 0),
               end: Alignment(_animation.value + 1, 0),
-              colors: [
-                const Color(0xFFE2E8F0),
-                const Color(0xFFF1F5F9),
-                const Color(0xFFE2E8F0),
+              colors: const [
+                Color(0xFFE2E8F0),
+                Color(0xFFF1F5F9),
+                Color(0xFFE2E8F0),
               ],
             ),
           ),

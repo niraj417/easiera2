@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,47 +15,60 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 2500), () {
-      if (mounted) context.go('/onboarding');
-    });
+    _navigateToNext();
+  }
+
+  Future<void> _navigateToNext() async {
+    await Future.delayed(const Duration(seconds: 3));
+    if (!mounted) return;
+    context.go('/login');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryNavy,
       body: Container(
-        decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              AppColors.primaryNavy,
+              AppColors.primaryBlue,
+              AppColors.surfaceBackground,
+            ],
+          ),
+        ),
         child: SafeArea(
           child: Column(
             children: [
               const Spacer(),
               Center(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      width: 96,
-                      height: 96,
+                      padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(color: Colors.white.withOpacity(0.3)),
+                        color: Colors.white.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white.withOpacity(0.2)),
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.monitor_heart_rounded, color: AppColors.goldAccent, size: 40),
-                        ],
+                      child: const Icon(
+                        Icons.analytics_rounded,
+                        size: 80,
+                        color: AppColors.goldAccent,
                       ),
-                    ).animate().scale(duration: 600.ms, curve: Curves.elasticOut),
-                    const SizedBox(height: 20),
+                    ).animate().scale(duration: 600.ms, curve: Curves.easeOutBack).fadeIn(),
+                    const SizedBox(height: 24),
                     Text(
                       'BizHealth360',
-                      style: AppTypography.displayLarge.copyWith(
+                      style: AppTypography.displayMedium.copyWith(
                         color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 32,
+                        letterSpacing: -1,
                       ),
-                    ).animate().fadeIn(delay: 300.ms, duration: 600.ms).slideY(begin: 0.3, end: 0),
+                    ).animate().slideY(begin: 0.3, duration: 600.ms).fadeIn(),
                     const SizedBox(height: 8),
                     Text(
                       'AI-Powered Compliance & Business Health',
@@ -73,22 +86,6 @@ class _SplashScreenState extends State<SplashScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: AppColors.goldAccent.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: AppColors.goldAccent.withOpacity(0.4)),
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.verified, color: AppColors.goldAccent, size: 14),
-                            const SizedBox(width: 4),
-                            Text('MCA Verified', style: AppTypography.labelSmall.copyWith(color: AppColors.goldAccent)),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 12),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(

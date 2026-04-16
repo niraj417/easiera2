@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
@@ -72,15 +71,15 @@ class AlertsCenterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Alerts Center'),
+      appBar: const BHAppBar(title: 'Alerts Center'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _AlertBanner(title: '2 Critical Overdue Items', subtitle: 'Immediate action required to avoid penalties', color: AppColors.statusRed, icon: Icons.error_rounded),
+            const _AlertBanner(title: '2 Critical Overdue Items', subtitle: 'Immediate action required to avoid penalties', color: AppColors.statusRed, icon: Icons.error_rounded),
             const SizedBox(height: 12),
-            _AlertBanner(title: '3 Items Due This Week', subtitle: 'File before deadlines to stay compliant', color: AppColors.statusAmber, icon: Icons.warning_rounded),
+            const _AlertBanner(title: '3 Items Due This Week', subtitle: 'File before deadlines to stay compliant', color: AppColors.statusAmber, icon: Icons.warning_rounded),
             const SizedBox(height: 20),
             Text('All Alerts', style: AppTypography.headlineMedium),
             const SizedBox(height: 12),

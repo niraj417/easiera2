@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_spacing.dart';
@@ -36,14 +35,14 @@ class ProfileScreen extends StatelessWidget {
               child: Column(children: [
                 Container(
                   width: 80, height: 80,
-                  decoration: BoxDecoration(gradient: AppColors.primaryGradient, shape: BoxShape.circle),
+                  decoration: const BoxDecoration(gradient: AppColors.primaryGradient, shape: BoxShape.circle),
                   child: Center(child: Text('S', style: AppTypography.displayLarge.copyWith(color: Colors.white, fontWeight: FontWeight.w800))),
                 ),
                 const SizedBox(height: 12),
                 Text('Rajesh Sharma', style: AppTypography.headlineLarge),
                 Text('rajesh@sharmatrading.com', style: AppTypography.bodyMedium),
                 const SizedBox(height: 8),
-                VerificationBadge(isVerified: true, label: 'KYC Verified'),
+                const VerificationBadge(isVerified: true, label: 'KYC Verified'),
                 const SizedBox(height: 16),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -125,6 +124,7 @@ class _MenuItem extends StatelessWidget {
   final String? badge;
   final Color? badgeColor;
   const _MenuItem(this.icon, this.label, this.onTap, {this.badge, this.badgeColor});
+  @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: AppColors.primaryBlue, size: 22),
@@ -144,7 +144,7 @@ class BusinessSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Business Settings'),
+      appBar: const BHAppBar(title: 'Business Settings'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -204,7 +204,7 @@ class _SecuritySettingsScreenState extends State<SecuritySettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Security & Login'),
+      appBar: const BHAppBar(title: 'Security & Login'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -224,7 +224,7 @@ class _SecuritySettingsScreenState extends State<SecuritySettingsScreen> {
             margin: const EdgeInsets.only(bottom: 8),
             child: ListTile(
               tileColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.card), side: BorderSide(color: AppColors.borderLight)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.card), side: const BorderSide(color: AppColors.borderLight)),
               leading: Icon(item['icon'] as IconData, color: AppColors.primaryBlue),
               title: Text(item['label'] as String, style: AppTypography.bodyMedium),
               trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.neutralGrey),
@@ -256,7 +256,7 @@ class _ToggleSetting extends StatelessWidget {
           Text(label, style: AppTypography.labelLarge),
           Text(subtitle, style: AppTypography.bodySmall),
         ])),
-        Switch(value: value, activeColor: AppColors.primaryBlue, onChanged: onChanged),
+        Switch(value: value, activeThumbColor: AppColors.primaryBlue, onChanged: onChanged),
       ]),
     );
   }
@@ -267,7 +267,7 @@ class SubscriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Subscription'),
+      appBar: const BHAppBar(title: 'Subscription'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -346,7 +346,7 @@ class _NotifSettingsState extends State<NotificationSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Notification Preferences'),
+      appBar: const BHAppBar(title: 'Notification Preferences'),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: _settings.entries.map((e) => Container(
@@ -355,7 +355,7 @@ class _NotifSettingsState extends State<NotificationSettingsScreen> {
           decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(AppRadius.card), border: Border.all(color: AppColors.borderLight)),
           child: Row(children: [
             Expanded(child: Text(e.key, style: AppTypography.labelLarge)),
-            Switch(value: e.value, activeColor: AppColors.primaryBlue, onChanged: (v) => setState(() => _settings[e.key] = v)),
+            Switch(value: e.value, activeThumbColor: AppColors.primaryBlue, onChanged: (v) => setState(() => _settings[e.key] = v)),
           ]),
         )).toList(),
       ),
@@ -368,7 +368,7 @@ class BillingHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Billing History'),
+      appBar: const BHAppBar(title: 'Billing History'),
       backgroundColor: AppColors.surfaceBackground,
       body: ListView.separated(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -378,7 +378,7 @@ class BillingHistoryScreen extends StatelessWidget {
           padding: const EdgeInsets.all(AppSpacing.lg),
           decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(AppRadius.card), border: Border.all(color: AppColors.borderLight)),
           child: Row(children: [
-            Container(width: 40, height: 40, decoration: BoxDecoration(color: AppColors.lightGreen, shape: BoxShape.circle), child: const Icon(Icons.receipt_rounded, color: AppColors.statusGreen, size: 20)),
+            Container(width: 40, height: 40, decoration: const BoxDecoration(color: AppColors.lightGreen, shape: BoxShape.circle), child: const Icon(Icons.receipt_rounded, color: AppColors.statusGreen, size: 20)),
             const SizedBox(width: 12),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text('Biz Pro Plan — ${['Jan', 'Dec', 'Nov', 'Oct', 'Sep', 'Aug'][i]} 2025', style: AppTypography.labelLarge),
@@ -417,7 +417,7 @@ class TeamSettingsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(AppSpacing.lg),
             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(AppRadius.card), border: Border.all(color: AppColors.borderLight)),
             child: Row(children: [
-              Container(width: 44, height: 44, decoration: BoxDecoration(gradient: AppColors.primaryGradient, shape: BoxShape.circle), child: Center(child: Text(m['name']!.substring(0, 1), style: AppTypography.headlineMedium.copyWith(color: Colors.white)))),
+              Container(width: 44, height: 44, decoration: const BoxDecoration(gradient: AppColors.primaryGradient, shape: BoxShape.circle), child: Center(child: Text(m['name']!.substring(0, 1), style: AppTypography.headlineMedium.copyWith(color: Colors.white)))),
               const SizedBox(width: 12),
               Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(m['name']!, style: AppTypography.labelLarge),
@@ -437,7 +437,7 @@ class GSTSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'GST & Tax Settings'),
+      appBar: const BHAppBar(title: 'GST & Tax Settings'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

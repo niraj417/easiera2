@@ -72,7 +72,7 @@ class BHButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppRadius.button),
               border: border != null ? Border.fromBorderSide(border) : null,
             ),
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.xl,
               vertical: AppSpacing.sm,
             ),
@@ -82,7 +82,7 @@ class BHButton extends StatelessWidget {
               children: [
                 if (leadingIcon != null && !isLoading) ...[
                   Icon(leadingIcon, color: textColor, size: 20),
-                  SizedBox(width: AppSpacing.sm),
+                  const SizedBox(width: AppSpacing.sm),
                 ],
                 if (isLoading)
                   SizedBox(
@@ -102,7 +102,7 @@ class BHButton extends StatelessWidget {
                     ),
                   ),
                 if (trailingIcon != null && !isLoading) ...[
-                  SizedBox(width: AppSpacing.sm),
+                  const SizedBox(width: AppSpacing.sm),
                   Icon(trailingIcon, color: textColor, size: 20),
                 ],
               ],
@@ -111,7 +111,7 @@ class BHButton extends StatelessWidget {
         ),
       ),
     ).animate().scale(
-          duration: Duration(milliseconds: 120),
+          duration: const Duration(milliseconds: 120),
           begin: const Offset(1.0, 1.0),
         );
   }

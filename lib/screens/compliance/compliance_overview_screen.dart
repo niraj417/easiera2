@@ -17,6 +17,7 @@ class ComplianceOverviewScreen extends StatefulWidget {
 
 class _ComplianceOverviewScreenState extends State<ComplianceOverviewScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  bool _isSyncing = false;
 
   final List<Map<String, dynamic>> _items = [
     {'title': 'GSTR-3B (Dec)', 'cat': 'GST', 'status': 'due_soon', 'days': 5, 'tab': 0},
@@ -33,6 +34,20 @@ class _ComplianceOverviewScreenState extends State<ComplianceOverviewScreen> wit
   void initState() {
     super.initState();
     _tabController = TabController(length: 5, vsync: this);
+  }
+
+  Future<void> _handleSync() async {
+    setState(() => _isSyncing = true);
+    await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+    setState(() => _isSyncing = false);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('All compliance status is successfully synced'),
+        backgroundColor: AppColors.statusGreen,
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 
   List<Map<String, dynamic>> _filtered(int tab) =>
@@ -53,6 +68,12 @@ class _ComplianceOverviewScreenState extends State<ComplianceOverviewScreen> wit
         ),
         actions: [
           IconButton(
+            onPressed: _isSyncing ? null : _handleSync,
+            icon: _isSyncing 
+              ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primaryBlue))
+              : const Icon(Icons.sync_rounded, color: AppColors.primaryBlue),
+          ),
+          IconButton(
             icon: Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: AppColors.primaryBlue, borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.add_rounded, color: Colors.white, size: 18)),
             onPressed: () => context.push('/compliance/add'),
           ),
@@ -70,14 +91,14 @@ class _ComplianceOverviewScreenState extends State<ComplianceOverviewScreen> wit
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(AppSpacing.lg),
+          const Padding(
+            padding: EdgeInsets.all(AppSpacing.lg),
             child: Row(
               children: [
                 _SummaryChip('24 Active', AppColors.primaryBlue),
-                const SizedBox(width: 8),
+                SizedBox(width: 8),
                 _SummaryChip('3 Due Soon', AppColors.statusAmber),
-                const SizedBox(width: 8),
+                SizedBox(width: 8),
                 _SummaryChip('1 Overdue', AppColors.statusRed),
               ],
             ),
@@ -89,7 +110,7 @@ class _ComplianceOverviewScreenState extends State<ComplianceOverviewScreen> wit
                 final items = _filtered(tab);
                 if (items.isEmpty) {
                   return Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Icon(Icons.check_circle_rounded, color: AppColors.statusGreen, size: 48),
+                    const Icon(Icons.check_circle_rounded, color: AppColors.statusGreen, size: 48),
                     const SizedBox(height: 12),
                     Text('All clear!', style: AppTypography.headlineMedium.copyWith(color: AppColors.statusGreen)),
                     Text('No pending items in this category', style: AppTypography.bodyMedium),
@@ -139,7 +160,7 @@ class GSTComplianceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'GST Compliance'),
+      appBar: const BHAppBar(title: 'GST Compliance'),
       backgroundColor: AppColors.surfaceBackground,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -153,12 +174,12 @@ class GSTComplianceScreen extends StatelessWidget {
                 Row(children: [
                   Text('GST Health Score', style: AppTypography.labelMedium.copyWith(color: Colors.white70)),
                   const Spacer(),
-                  VerificationBadge(isVerified: true, label: 'GST Verified'),
+                  const VerificationBadge(isVerified: true, label: 'GST Verified'),
                 ]),
                 const SizedBox(height: 4),
                 Text('85/100', style: AppTypography.displayLarge.copyWith(color: Colors.white, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 16),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                const Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                   _GSTStat('GSTIN', '29AABCS\n1234Z1ZV', Colors.white),
                   _GSTStat('Returns Filed', '24/24', AppColors.statusGreen),
                   _GSTStat('Tax Paid', '₹12.4L', AppColors.goldAccent),
@@ -262,7 +283,7 @@ class IncomeTaxScreen extends StatelessWidget {
   const IncomeTaxScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return _CategoryListScaffold(title: 'Income Tax', category: 'Income Tax', color: AppColors.primaryBlue, items: ['TDS Return Q3 FY25', 'Advance Tax Q3', 'ITR Filing FY24', 'Form 15CA/CB']);
+    return const _CategoryListScaffold(title: 'Income Tax', category: 'Income Tax', color: AppColors.primaryBlue, items: ['TDS Return Q3 FY25', 'Advance Tax Q3', 'ITR Filing FY24', 'Form 15CA/CB']);
   }
 }
 
@@ -270,7 +291,7 @@ class LabourLawsScreen extends StatelessWidget {
   const LabourLawsScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return _CategoryListScaffold(title: 'Labour Laws', category: 'Labour', color: AppColors.verifiedTeal, items: ['PF Monthly Contribution', 'ESI Monthly Contribution', 'Professional Tax', 'Gratuity Return']);
+    return const _CategoryListScaffold(title: 'Labour Laws', category: 'Labour', color: AppColors.verifiedTeal, items: ['PF Monthly Contribution', 'ESI Monthly Contribution', 'Professional Tax', 'Gratuity Return']);
   }
 }
 
@@ -279,7 +300,7 @@ class LicensesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BHAppBar(title: 'Licences'),
+      appBar: const BHAppBar(title: 'Licences'),
       backgroundColor: AppColors.surfaceBackground,
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
